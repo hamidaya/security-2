@@ -25,9 +25,6 @@ public class TelevisionController {
                                 TelevisionWallBracketService televisionWallBracketService){
         this.televisionService = televisionService;
         this.televisionWallBracketService = televisionWallBracketService;
-        float f = 1f;
-        double d = 1d;
-        long l = 1l;
     }
 
     @GetMapping("/televisions")
