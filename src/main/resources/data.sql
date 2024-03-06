@@ -2,7 +2,8 @@ INSERT INTO wall_bracket (id, size, adjustable, name, price) VALUES (1001, '25X3
 (1002, '25X32/32X40', true, 'LG bracket', 32.23),
 (1003, '25X25', false, 'Philips bracket', 32.23),
 (1004, '25X32/32X40', true, 'Nikkei bracket', 32.23),
-(1005, '25X32', false, 'Nikkei bracket', 32.23);
+(1005, '25X32', false, 'Nikkei bracket', 32.23),
+(1006, 'abcd', true,'homebrand', 13.55);
 
 INSERT INTO cimodule (id, name, type, price) VALUES (1001, 'universal CI-module', '23JI12', 32.5);
 
@@ -16,10 +17,10 @@ INSERT INTO television (id, type, brand, name, price, available_size, refresh_ra
   (1004, '43PUS6504/12/S', 'Philips', '4K UHD LED Smart Tv', 379, 58, 60, 'LED', 'Ultra HD',  true, true, false, true, false, false, 6548945, 4485741),
   (1005, 'OLED55C16LA', 'LG', 'LG OLED55C16LA', 989, 55, 100, 'OLED', 'ULTRA HD',  true, true, true, true, true, false, 50000, 20500);
 
-INSERT INTO television_wall_bracket(television_id, wall_bracket_id) values (1005, 1001),
+INSERT INTO television_wallbrackets(television, wallbracket) values (1005, 1001),
  (1005, 1002),
  (1002, 1003),
  (1003, 1003),
  (1004, 1003),
  (1001, 1004),
- (1001, 1005);
+ (1001, 1006);

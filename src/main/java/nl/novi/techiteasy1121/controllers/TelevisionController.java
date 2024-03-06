@@ -86,20 +86,25 @@ public class TelevisionController {
 
     // Onderstaande 2 methodes zijn endpoints om andere entiteiten toe te voegen aan de Television.
     // Dit is één manier om dit te doen, met één PathVariable en één RequestBody.
-    @PutMapping("/televisions/{id}/remotecontroller")
-    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id,@Valid @RequestBody IdInputDto input) {
-        televisionService.assignRemoteControllerToTelevision(id, input.id);
+    @PutMapping("/televisions/{id}/remotecontroller/{remoteId}")
+    public void assignRemoteControllerToTelevision(@PathVariable("id") Long id,@PathVariable Long remoteId) {
+        televisionService.assignRemoteControllerToTelevision(id, remoteId);
+    }
+
+    @PutMapping("/televisions/{id}/wallbracket/{wbid}")
+    public void assignWallBracketToTelevision(@PathVariable("id") Long id,@PathVariable Long wbid){
+
     }
 
     //Dit is een andere manier om het te doen, met twee Pathvariables, maar het kan uiteraard ook anders.
-    @PutMapping("/televisions/{id}/{ciModuleId}")
+    @PutMapping("/televisions/{id}/cimodule/{ciModuleId}")
     public void assignCIModuleToTelevision(@PathVariable("id") Long id, @PathVariable("ciModuleId") Long ciModuleId) {
         televisionService.assignCIModuleToTelevision(id, ciModuleId);
     }
 
     // Deze methode is om alle wallbrackets op te halen die aan een bepaalde television gekoppeld zijn.
     // Deze methode maakt gebruik van de televisionWallBracketService.
-    @GetMapping("/televisions/wallBrackets/{televisionId}")
+    @GetMapping("/televisions/{televisionId}/wallBrackets")
     public Collection<WallBracketDto> getWallBracketsByTelevisionId(@PathVariable("televisionId") Long televisionId){
         return televisionWallBracketService.getWallBracketsByTelevisionId(televisionId);
     }

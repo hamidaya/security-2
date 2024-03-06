@@ -1,11 +1,8 @@
 package nl.novi.techiteasy1121.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import jakarta.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Television {
@@ -43,10 +40,14 @@ public class Television {
     private CIModule ciModule;
 
     // Dit is de target kant van de relatie. Er staat niks in de database
-    @OneToMany(mappedBy = "television")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
-    Collection<TelevisionWallBracket> televisionWallBrackets;
+
+    @ManyToMany
+    @JoinTable(
+            name = "television_wallbrackets",  // Dit is de naam van de koppeltabel en dus hoe we het in de data.sql moeten aanspreken.
+            joinColumns = @JoinColumn(name = "television"), // Dit is de kolom met het ID van "deze kant" van de relatie
+            inverseJoinColumns = @JoinColumn(name = "wallbracket") // Dit is de kolom met het ID van "de andere kant" van de relatie
+    )
+    List<WallBracket> wallBrackets;
 
 //    constructors hoeven niet per se aangemaakt te worden
     // Een default constructor
@@ -167,8 +168,8 @@ public class Television {
         return ciModule;
     }
 
-    public Collection<TelevisionWallBracket> getTelevisionWallBrackets() {
-        return televisionWallBrackets;
+    public Collection<WallBracket> getWallBrackets() {
+        return wallBrackets;
     }
 
     //  Alle variable setters
@@ -248,7 +249,7 @@ public class Television {
         this.ciModule = ciModule;
     }
 
-    public void setTelevisionWallBrackets(Collection<TelevisionWallBracket> televisionWallBrackets) {
-        this.televisionWallBrackets = televisionWallBrackets;
+    public void setWallBrackets(List<WallBracket> wallBrackets) {
+        this.wallBrackets = wallBrackets;
     }
 }

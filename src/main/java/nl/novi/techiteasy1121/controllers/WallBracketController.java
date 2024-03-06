@@ -55,7 +55,7 @@ public class WallBracketController {
 
     // Deze methode haalt alle televisies op die aan een bepaalde wallbracket gekoppeld zijn.
     // Deze methode maakt gebruikt van de televisionWallBracketService.
-    @GetMapping("/wallbrackets/televisions/{wallBracketId}")
+    @GetMapping("/wallbrackets/{wallBracketId}/televisions")
     public Collection<TelevisionDto> getTelevisionsByWallBracketId(@PathVariable("wallBracketId") Long wallBracketId){
         return televisionWallBracketService.getTelevisionsByWallBracketId(wallBracketId);
     }

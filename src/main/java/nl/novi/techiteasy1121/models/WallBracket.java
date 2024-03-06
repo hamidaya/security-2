@@ -2,10 +2,8 @@ package nl.novi.techiteasy1121.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -20,9 +18,8 @@ public class WallBracket {
     private Double price;
 
     // Dit is de target kant van de relatie. Er staat niks in de database
-    @OneToMany(mappedBy = "wallBracket")
-    @JsonIgnore
-    List<TelevisionWallBracket> televisionWallBrackets;
+    @ManyToMany(mappedBy = "wallBrackets")
+    List<Television> televisions;
 
     public Long getId() {
         return id;
@@ -44,8 +41,8 @@ public class WallBracket {
         return price;
     }
 
-    public List<TelevisionWallBracket> getTelevisionWallBrackets() {
-        return televisionWallBrackets;
+    public List<Television> getTelevisions() {
+        return televisions;
     }
 
     public void setId(Long id) {
@@ -68,7 +65,7 @@ public class WallBracket {
         this.price = price;
     }
 
-    public void setTelevisionWallBrackets(List<TelevisionWallBracket> televisionWallBrackets) {
-        this.televisionWallBrackets = televisionWallBrackets;
+    public void setTelevisions(List<Television> televisions) {
+        this.televisions = televisions;
     }
 }
