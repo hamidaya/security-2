@@ -25,3 +25,6 @@ INSERT INTO television_wallbrackets(television, wallbracket) values (1005, 1001)
  (1004, 1003),
  (1001, 1004),
  (1001, 1006);
+
+INSERT INTO users (username, password, enabled, apikey, email) VALUES ('henk', $2a$12$.1v8dl4RGgaewLjy3cqOouzPbJBfwjeH45IscvZwv3xObIa7F85p6 , true, '7847493', "test@testy.tst");
+INSERT INTO authorities (username, authority) VALUES ('henk', 'ROLE_ADMIN');
