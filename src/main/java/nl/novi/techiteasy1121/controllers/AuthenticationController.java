@@ -1,9 +1,11 @@
 package nl.novi.techiteasy1121.controllers;
 
 import nl.novi.techiteasy1121.dtos.AuthenticationRequest;
-import nl.novi.techiteasy1121.dtos.AuthenticationResponse;
+import nl.novi.techiteasy1121.services.CustomUserDetailsService;
+import nl.novi.techiteasy1121.utils.JwtUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +18,16 @@ import java.security.Principal;
 @RestController
 public class AuthenticationController {
 
-    /*TODO inject authentionManager, userDetailService en jwtUtil*/
+    public final AuthenticationManager authenticationManager;
+    public final JwtUtil jwtUtil;
+
+    public final CustomUserDetailsService customUserDetailsService;
+
+    public AuthenticationController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, CustomUserDetailsService customUserDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     /*
          Deze methode geeft de principal (basis user gegevens) terug van de ingelogde gebruiker
@@ -44,13 +55,13 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password", ex);
         }
 
-        final UserDetails userDetails = userDetailsService
+        final UserDetails userDetails = customUserDetailsService
                 .loadUserByUsername(username);
 
         final String jwt = jwtUtil.generateToken(userDetails);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + jwt)
                 .body("Token generated");
     }
 

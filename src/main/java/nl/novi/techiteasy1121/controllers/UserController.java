@@ -2,6 +2,7 @@ package nl.novi.techiteasy1121.controllers;
 
 import nl.novi.techiteasy1121.dtos.UserDto;
 import nl.novi.techiteasy1121.exceptions.BadRequestException;
+import nl.novi.techiteasy1121.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,15 +16,23 @@ import java.util.Map;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    /*TODO inject userService*/
+    public final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping(value = "")
     public ResponseEntity<List<UserDto>> getUsers() {
+
+
 
         List<UserDto> userDtos = userService.getUsers();
 
         return ResponseEntity.ok().body(userDtos);
     }
+
 
     @GetMapping(value = "/{username}")
     public ResponseEntity<UserDto> getUser(@PathVariable("username") String username) {

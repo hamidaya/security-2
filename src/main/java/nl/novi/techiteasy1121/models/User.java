@@ -19,6 +19,7 @@ public class User {
     @Column(nullable = false, length = 255)
     private String password;
 
+
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",

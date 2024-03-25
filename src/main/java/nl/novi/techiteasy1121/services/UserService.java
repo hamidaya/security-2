@@ -58,7 +58,7 @@ public class UserService {
     }
 
     public void deleteUser(String username) {
-        /*repo*/.deleteById(username);
+        userRepository.deleteById(username);
     }
 
     public void updateUser(String username, UserDto newUser) {

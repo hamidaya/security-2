@@ -12,6 +12,7 @@ public class UserDto {
     public Boolean enabled;
     public String apikey;
     public String email;
+
     @JsonSerialize
     public Set<Authority> authorities;
 
